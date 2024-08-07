@@ -15,7 +15,7 @@ import { ref } from "vue";
 import Three1 from './pages/three1.vue'
 const componentList = ref([
   {
-    name: '示例1',
+    name: '示例1-1',
     component: Three1,
   }
 ])
