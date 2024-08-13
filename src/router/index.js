@@ -13,6 +13,11 @@ const routes = [
     name: "threejs",
     component: () => import('../components/ThreeJs.vue'),
   },
+  {
+    path: "/test1",
+    name: "threejs",
+    component: () => import('../components/ThreeJs.vue'),
+  },
 ]
 
 //路由对象
