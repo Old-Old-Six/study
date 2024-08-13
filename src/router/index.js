@@ -12,6 +12,11 @@ const routes = [
     path: "/t1",
     name: "threejs学习1",
     component: () => import('../components/ThreeJs.vue'),
+  },
+  {
+    path: "/t2",
+    name: "threejs学习2",
+    component: () => import('../components/ThreeJs.vue'),
   }
 ]
 
