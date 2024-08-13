@@ -7,6 +7,11 @@ const routes = [
     path: "/",
     name: "threejs学习",
     component: () => import('../components/ThreeJs.vue'),
+  },
+  {
+    path: "/t1",
+    name: "threejs学习1",
+    component: () => import('../components/ThreeJs.vue'),
   }
 ]
 
