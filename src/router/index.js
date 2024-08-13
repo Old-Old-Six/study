@@ -8,6 +8,11 @@ const routes = [
     name: "threejs学习",
     component: () => import('../components/ThreeJs.vue'),
   },
+  {
+    path: "/test",
+    name: "threejs",
+    component: () => import('../components/ThreeJs.vue'),
+  },
 ]
 
 //路由对象
