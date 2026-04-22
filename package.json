@@ -6,17 +6,23 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "typecheck": "vue-tsc --noEmit"
   },
   "dependencies": {
-    "less": "^4.2.0",
     "stats.js": "^0.17.0",
-    "three": "^0.163.0",
+    "three": "0.184.0",
     "vue": "^3.4.21",
     "vue-router": "^4.3.0"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^5.0.4",
+    "@vitejs/plugin-vue-jsx": "^4.0.0",
+    "@types/node": "^22.0.0",
+    "@types/three": "^0.180.0",
+    "less": "^4.2.0",
+    "typescript": "^5.0.0",
+    "vue-tsc": "^2.0.0",
     "vite": "^5.2.0"
   }
 }
