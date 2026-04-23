@@ -11,9 +11,13 @@ export default defineComponent({
     const title = (route.meta.title as string) || '未命名练习'
 
     return () => (
-      <div class="module-placeholder">
-        <div class="module-placeholder-title">{title}</div>
-        <div class="module-placeholder-text">内容区暂留，后续接入练习内容。</div>
+      <div class="module-content">
+        <div class="module-body">
+          <div class="module-placeholder">
+            <div class="module-placeholder-title">{title}</div>
+            <div class="module-placeholder-text">内容区暂留，后续接入练习内容。</div>
+          </div>
+        </div>
       </div>
     )
   },

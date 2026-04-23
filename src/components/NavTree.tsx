@@ -20,6 +20,10 @@ export default defineComponent({
       type: Boolean,
       default: false,
     },
+    showToggle: {
+      type: Boolean,
+      default: true,
+    },
   },
   emits: ['select', 'toggle'],
   setup(props, { emit }) {
@@ -56,9 +60,11 @@ export default defineComponent({
 
     return () => (
       <aside class={rootClass.value}>
-        <button class="nav-toggle" type="button" onClick={toggle} aria-label="toggle">
-          <span class="nav-toggle-icon" />
-        </button>
+        {props.showToggle && (
+          <button class="nav-toggle" type="button" onClick={toggle} aria-label="toggle">
+            <span class="nav-toggle-icon" />
+          </button>
+        )}
         <div class="nav-list">{props.nodes.map(renderNode)}</div>
       </aside>
     )
