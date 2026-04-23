@@ -42,6 +42,10 @@ export default defineComponent({
       collapsed.value = !collapsed.value
     }
 
+    const goHome = () => {
+      router.push('/')
+    }
+
     return () => (
       <div class={['module-page', collapsed.value && 'is-collapsed'].filter(Boolean)}>
         {currentModule.value && (
@@ -55,6 +59,9 @@ export default defineComponent({
         )}
         <div class="module-content">
           <div class="module-header">
+            <button class="module-home-btn" type="button" onClick={goHome} aria-label="home">
+              <span class="module-home-icon" />
+            </button>
             <Breadcrumbs items={breadcrumbItems.value} />
           </div>
           <div class="module-body">

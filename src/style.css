@@ -122,12 +122,17 @@ li {
 .home-mask {
   position: absolute;
   inset: 0;
-  background: rgba(10, 14, 24, 0.6);
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.08),
+    rgba(120, 180, 255, 0.06) 45%,
+    rgba(255, 100, 180, 0.05)
+  );
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 8;
-  backdrop-filter: blur(4px);
+  backdrop-filter: blur(14px) saturate(1.2);
 }
 
 .home-modal {
@@ -143,7 +148,11 @@ li {
   width: 100%;
   min-height: 320px;
   border-radius: 50%;
-  background: radial-gradient(circle at 35% 30%, rgba(255, 255, 255, 0.8), rgba(86, 120, 255, 0.45));
+  background: radial-gradient(
+    circle at 35% 30%,
+    rgba(255, 255, 255, 0.7),
+    rgba(86, 120, 255, 0.35)
+  );
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -152,7 +161,8 @@ li {
   padding: 36px;
   color: #0b0f1a;
   text-align: center;
-  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.45);
+  box-shadow: 0 30px 90px rgba(0, 0, 0, 0.45);
+  border: 1px solid rgba(255, 255, 255, 0.55);
 }
 
 .home-modal-title {
@@ -174,28 +184,33 @@ li {
 }
 
 .module-page {
-  display: grid;
-  grid-template-columns: 240px 1fr;
+  position: relative;
   height: 100%;
   width: 100%;
 }
 
 .module-page.is-collapsed {
-  grid-template-columns: 72px 1fr;
 }
 
 .nav-tree {
-  position: relative;
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 240px;
   height: 100%;
   padding: 20px 16px;
-  background: rgba(20, 28, 45, 0.9);
+  background: rgba(20, 28, 45, 0.58);
   border-right: 1px solid rgba(255, 255, 255, 0.08);
   display: flex;
   flex-direction: column;
   gap: 16px;
+  z-index: 20;
+  backdrop-filter: blur(12px) saturate(1.1);
 }
 
 .nav-tree.is-collapsed {
+  width: 72px;
   padding: 20px 10px;
 }
 
@@ -262,12 +277,41 @@ li {
   display: flex;
   flex-direction: column;
   height: 100%;
+  width: 100%;
+  padding-left: 240px;
+}
+
+.module-page.is-collapsed .module-content {
+  padding-left: 72px;
 }
 
 .module-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
   padding: 20px 24px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-  background: rgba(14, 18, 32, 0.95);
+  background: rgba(14, 18, 32, 0.72);
+  backdrop-filter: blur(10px) saturate(1.1);
+}
+
+.module-home-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(255, 255, 255, 0.12);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.module-home-icon {
+  width: 16px;
+  height: 16px;
+  background: rgba(255, 255, 255, 0.82);
+  clip-path: polygon(50% 0%, 96% 40%, 82% 40%, 82% 100%, 18% 100%, 18% 40%, 4% 40%);
 }
 
 .breadcrumbs {

@@ -69,12 +69,12 @@ export default defineComponent({
       const width = containerRef.value?.clientWidth ?? 1200
       const height = containerRef.value?.clientHeight ?? 800
 
-      balls.value.forEach((ball, index) => {
-        if (activeIndex.value !== null && activeIndex.value !== index) {
-          ball.scale = clamp(ball.scale - 0.03, 0.8, 1)
-          return
-        }
+      if (activeIndex.value !== null) {
+        rafId.value = requestAnimationFrame(animate)
+        return
+      }
 
+      balls.value.forEach((ball, index) => {
         if (!ball.focused && activeIndex.value === null) {
           ball.x += ball.vx
           ball.y += ball.vy
@@ -112,10 +112,6 @@ export default defineComponent({
     }
 
     const onLeave = (index: number) => {
-      if (activeIndex.value === index) {
-        onClose()
-        return
-      }
       if (activeIndex.value !== null) return
       const ball = balls.value[index]
       ball.focused = false
@@ -129,6 +125,8 @@ export default defineComponent({
         ...ball,
         active: i === index,
         focused: i === index,
+        vx: i === index ? 0 : ball.vx,
+        vy: i === index ? 0 : ball.vy,
       }))
     }
 
@@ -138,6 +136,8 @@ export default defineComponent({
         ...ball,
         active: false,
         focused: false,
+        vx: (Math.random() - 0.5) * 0.8,
+        vy: (Math.random() - 0.5) * 0.8,
       }))
     }
 
@@ -163,59 +163,49 @@ export default defineComponent({
       const activeBall =
         activeIndex.value === null ? null : balls.value[activeIndex.value] ?? null
 
-      const centerX = containerRef.value?.clientWidth
-        ? containerRef.value.clientWidth / 2
-        : 0
-      const centerY = containerRef.value?.clientHeight
-        ? containerRef.value.clientHeight / 2
-        : 0
-
       return (
         <div class="home" ref={containerRef}>
           <div class="home-bg" />
           <div class="home-hint">双击球体进入模块</div>
-          <div class="home-stage">
-            {balls.value.map((ball, index) => (
-              (() => {
-                const isActive = ball.active
-                const x = isActive ? centerX : ball.x
-                const y = isActive ? centerY : ball.y
-                return (
-              <div
-                key={`${ball.label}-${index}`}
-                class={[
-                  'module-ball',
-                  ball.focused && 'is-focused',
-                  ball.active && 'is-active',
-                ]
-                  .filter(Boolean)
-                  .join(' ')}
-                style={{
-                  transform: `translate(${x}px, ${y}px) scale(${ball.scale})`,
-                  width: `${ball.size}px`,
-                  height: `${ball.size}px`,
-                }}
-                onMouseenter={() => onEnter(index)}
-                onMouseleave={() => onLeave(index)}
-                onClick={() => onClick(index)}
-                onDblclick={() => onDoubleClick(index)}
-              >
-                <div class="ball-glow" />
-                <div class="ball-content">
-                  <div class="ball-title">{ball.label}</div>
+          {!activeBall && (
+            <div class="home-stage">
+              {balls.value.map((ball, index) => (
+                <div
+                  key={`${ball.label}-${index}`}
+                  class={['module-ball', ball.focused && 'is-focused']
+                    .filter(Boolean)
+                    .join(' ')}
+                  style={{
+                    transform: `translate(${ball.x}px, ${ball.y}px) scale(${ball.scale})`,
+                    width: `${ball.size}px`,
+                    height: `${ball.size}px`,
+                  }}
+                  onMouseenter={() => onEnter(index)}
+                  onMouseleave={() => onLeave(index)}
+                  onClick={() => onClick(index)}
+                  onDblclick={() => onDoubleClick(index)}
+                >
+                  <div class="ball-glow" />
+                  <div class="ball-content">
+                    <div class="ball-title">{ball.label}</div>
+                  </div>
                 </div>
-              </div>
-                )
-              })()
-            ))}
-          </div>
+              ))}
+            </div>
+          )}
           {activeBall && (
-            <div class="home-mask" onClick={onClose}>
-              <div class="home-modal" onClick={(event) => event.stopPropagation()}>
-                <div class="home-modal-ball">
+            <div class="home-mask">
+              <div class="home-modal">
+                <div
+                  class="home-modal-ball"
+                  onMouseleave={onClose}
+                  onDblclick={() => onDoubleClick(activeIndex.value as number)}
+                >
                   <div class="home-modal-title">{activeBall.label}</div>
                   <div class="home-modal-desc">{activeBall.desc}</div>
-                  <div class="home-modal-tip">双击进入模块</div>
+                  <div class="home-modal-tip">
+                    双击进入模块 · 移出球体关闭
+                  </div>
                 </div>
               </div>
             </div>
